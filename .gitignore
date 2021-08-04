@@ -2,4 +2,4 @@
 venv/
 __pycache__/
 dist/
-youtubeinfo/*.egg-info
+*.egg-info

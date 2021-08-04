@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="youtubeinfo",
-    version="0.1.1",
+    version="0.1.2",
     author="Luiz P.",
     author_email="umluiz@gmail.com",
     description="Get YouTube data for analysis",
@@ -19,8 +19,7 @@ setuptools.setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords="youtube data caption",
-    package_dir={"": "youtubeinfo"},
-    packages=setuptools.find_packages(where="youtubeinfo"),
+    packages=setuptools.find_packages(),
     install_requires=["google-api-python-client",
                       "pandas",
                       "youtube_transcript_api"],
