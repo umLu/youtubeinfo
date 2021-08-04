@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="youtube-data",
+    name="youtubeinfo",
     version="0.1.1",
     author="Luiz P.",
     author_email="umluiz@gmail.com",
     description="Get YouTube data for analysis",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/umLu/youtube-data",
+    url="https://github.com/umLu/youtubeinfo",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -19,8 +19,8 @@ setuptools.setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords="youtube data caption",
-    package_dir={"": "youtubedata"},
-    packages=setuptools.find_packages(where="youtubedata"),
+    package_dir={"": "youtubeinfo"},
+    packages=setuptools.find_packages(where="youtubeinfo"),
     install_requires=["google-api-python-client",
                       "pandas",
                       "youtube_transcript_api"],

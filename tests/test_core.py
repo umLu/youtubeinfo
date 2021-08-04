@@ -1,5 +1,5 @@
 import unittest
-from youtubedata.core import search
+from youtubeinfo.core import search
 
 
 class YoutubeSearch(unittest.TestCase):

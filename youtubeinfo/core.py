@@ -4,9 +4,9 @@ import requests
 import pandas as pd
 import os
 from youtube_transcript_api import YouTubeTranscriptApi
-from youtubedata.config.constants import YOUTUBE_API_SERVICE_NAME
-from youtubedata.config.constants import YOUTUBE_API_VERSION
-from youtubedata.config.constants import YOUTUBE_API_URL
+from youtubeinfo.config.constants import YOUTUBE_API_SERVICE_NAME
+from youtubeinfo.config.constants import YOUTUBE_API_VERSION
+from youtubeinfo.config.constants import YOUTUBE_API_URL
 
 
 class search:
