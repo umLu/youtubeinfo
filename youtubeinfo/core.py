@@ -24,13 +24,28 @@ class search:
             self._developer_key = developer_key
         self._accepted_caption_lang = accepted_caption_lang
         self.raw = self._search_from_term(term, maxres)
-        self.df = self._build_dataframe(caption=caption)
+        if len(self.raw['items']):
+            self.df = self._build_dataframe(caption=caption)
+        else:
+            print('No results. The DataFrame attribute will be None')
+            self.df = None
 
     def _search_from_term(self,
                           term: str,
                           maxres: int = 50):
         try:
             search_list = self._search_request(term, maxres)
+            # Validate response
+            if isinstance(search_list, dict):
+                if not set(search_list.keys()).issuperset(
+                    set(['kind',
+                         'etag',
+                         'regionCode',
+                         'pageInfo',
+                         'items'])):
+                    raise KeyError
+            else:
+                raise TypeError
         except HttpError as e:
             print("An HTTP error %d"
                   " occurred:\n%s" % (e.resp.status, e.content))
@@ -40,7 +55,7 @@ class search:
     def _search_request(self,
                         term: str,
                         maxres: int = 50):
-        """Query Youtube."""
+        """Query YouTube."""
         youtube = build(YOUTUBE_API_SERVICE_NAME,
                         YOUTUBE_API_VERSION,
                         developerKey=self._developer_key)
