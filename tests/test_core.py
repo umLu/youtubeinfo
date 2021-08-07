@@ -14,3 +14,8 @@ class YoutubeSearch(unittest.TestCase):
         self.assertTrue(
             len([_ for _ in df_caption.to_list() if _ is None]) > 0
             )
+
+    def test_no_results(self):
+        df_no_results = search("DGpsZ9DKwNLDv79EZfD78KjLYXA4j8Ry",
+                               caption=True)
+        self.assertIsNone(df_no_results.df)
