@@ -9,6 +9,10 @@ class YoutubeSearch(unittest.TestCase):
         self.assertEqual(df_shape[0], 25)
         self.assertEqual(df_shape[1], 12)
 
+    def test_big_shape(self):
+        df_shape = search("Test", maxres=100).df.shape
+        self.assertEqual(df_shape[0], 100)
+
     def test_caption(self):
         df_caption = search("Test", caption=True).df['video_caption']
         self.assertTrue(
