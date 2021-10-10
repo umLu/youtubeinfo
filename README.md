@@ -1,5 +1,7 @@
 # Youtube-Info
 
+[![PyPI version](https://badge.fury.io/py/youtubeinfo.svg)](https://badge.fury.io/py/youtubeinfo)
+
 Make YouTube queries and get information from videos (including captions, likes, titles, etc.) ready for Jupyter Notebooks.
 
 ## Installation
@@ -13,7 +15,7 @@ pip install youtubeinfo
 Create a search object
 ```python
 import youtubeinfo.core as yt
-yt_search = yt.search("Test", developer_key=<YOUTUBE_DEVELOPER_KEY>)
+yt_search = yt.search("Test", developer_key=<YOUR_YOUTUBE_DEVELOPER_KEY>)
 yt_search.df  # DataFrame with YouTube infos (likes, views, title, etc.)
 ```
 __Output example:__
@@ -26,14 +28,14 @@ __Output example:__
 
 ### Developer key
 
-**YOUTUBE_DEVELOPER_KEY** has to be created following https://developers.google.com/youtube/registering_an_application?hl=en and can be set as environment variable
+To use ```youtubeinfo``` a Google YouTube developer key needs to be created following https://developers.google.com/youtube/registering_an_application?hl=en and can be set as environment variable.
 
 ### Developer key as environment variable
 
-**Linux**: edit ~/.profile and add as last line of code
+**Linux**: edit ~/.profile and add as last line of code:
 
 ```bash
-export YOUTUBE_DEVELOPER_KEY=<YOUTUBE_DEVELOPER_KEY>
+export YOUTUBE_DEVELOPER_KEY=<YOUR_YOUTUBE_DEVELOPER_KEY>
 ```
 
 ### Captions
