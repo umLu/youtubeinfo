@@ -95,34 +95,50 @@ class search:
         appended_data = []
         for search_req in self.raw:
             for search_item in search_req['items']:
-                video_id = search_item['id']['videoId']
-                search_results = search_item['snippet']
-                search_results.pop("thumbnails", None)
-                search_results['videoId'] = video_id
-                video_statistics = self.get_statistics(video_id)
-                video_statistics['videoId'] = video_id
-                if caption:
-                    _, video_caption = self.get_captions(video_id)
-                    video_caption = {'video_caption': video_caption}
-                    video_metadata = {**search_results,
-                                      **video_statistics,
-                                      **video_caption}
-                else:
-                    video_metadata = {**search_results,
-                                      **video_statistics}
+                try:
+                    if not (
+                        'id' in search_item and 
+                        'videoId' in search_item['id'] and
+                        'snippet' in search_item
+                    ):
+                        continue
+                    
+                    video_id = search_item['id']['videoId']
+                    search_results = search_item['snippet']
+                    search_results.pop("thumbnails", None)
+                    search_results['videoId'] = video_id
+                    
+                    video_statistics = self.get_statistics(video_id)
+                    video_statistics['videoId'] = video_id
+                    
+                    if caption:
+                        _, video_caption = self.get_captions(video_id)
+                        video_caption = {'video_caption': video_caption}
+                        video_metadata = {
+                            **search_results,
+                            **video_statistics,
+                            **video_caption
+                        }
+                    else:
+                        video_metadata = {
+                            **search_results,
+                            **video_statistics
+                        }
 
-                video_metadata = pd.DataFrame.from_dict([video_metadata])
-                appended_data.append(video_metadata)
+                    video_metadata = pd.DataFrame.from_dict(
+                        [video_metadata])
+                    appended_data.append(video_metadata)
+                    
+                except Exception:
+                    continue
         if len(appended_data):
             appended_data = pd.concat(appended_data)
             appended_data.dropna(axis=0,
                                  how='any',
                                  inplace=True,
                                  subset=['likeCount',
-                                         'dislikeCount',
                                          'viewCount'])
             df_youtube = appended_data.astype({"likeCount": int,
-                                               "dislikeCount": int,
                                                "viewCount": int})
             df_youtube['publishedAt'] = pd.to_datetime(
                 df_youtube['publishedAt'])
