@@ -23,7 +23,10 @@ class search:
                  developer_key: str = None) -> None:
         self._accepted_caption_lang = accepted_caption_lang
         if developer_key is None:
-            self._developer_key = os.environ['YOUTUBE_DEVELOPER_KEY']
+            try:
+                self._developer_key = os.environ['YOUTUBE_DEVELOPER_KEY']
+            except KeyError:
+                raise ValueError("YouTube Developer Key not found")
         else:
             self._developer_key = developer_key
         self.raw = self._consolidate_search(term, maxres)
@@ -86,7 +89,8 @@ class search:
             q=term,
             part="id,snippet",
             maxResults=maxres,
-            pageToken=pageToken
+            pageToken=pageToken,
+            type="video"
         ).execute()
         return search_response
 
