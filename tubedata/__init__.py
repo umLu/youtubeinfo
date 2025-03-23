@@ -7,7 +7,7 @@ A Python package for retrieving YouTube data, including video statistics, captio
 from tubedata.search import Search
 from tubedata.channel_info import ChannelInfo
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 __license__ = "GNU General Public License v3 (GPLv3)"
 __url__ = "https://github.com/umLu/tubedata"
 __all__ = ["Search", "ChannelInfo"]

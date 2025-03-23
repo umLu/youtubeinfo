@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 from typing import List, Optional, Dict, Any
 from apiclient.discovery import build
-from youtube_transcript_api import YouTubeTranscriptApi
+import youtube_transcript_api as ytapi
 from tubedata.config.constants import YOUTUBE_API_SERVICE_NAME
 from tubedata.config.constants import YOUTUBE_API_VERSION
 from tubedata.config.constants import YOUTUBE_API_URL
@@ -60,15 +60,18 @@ def get_video_captions(
     Returns:
         Optional[str]: Caption text or None if not available
     """
-    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-    for lang in accepted_caption_lang:
-        try:
-            transcript = transcript_list.find_transcript([lang])
-            caption = transcript.fetch()
-            df_caption = pd.DataFrame.from_dict(caption)
-            return "; ".join(df_caption["text"])
-        except Exception:
-            continue
+    try:
+        transcript_list = ytapi.YouTubeTranscriptApi.list_transcripts(video_id)
+        for lang in accepted_caption_lang:
+            try:
+                transcript = transcript_list.find_transcript([lang])
+                caption = transcript.fetch()
+                df_caption = pd.DataFrame.from_dict(caption)
+                return "; ".join(df_caption["text"])
+            except Exception:
+                continue
+    except ytapi._errors.TranscriptsDisabled:
+        return None
     return None
 
 
