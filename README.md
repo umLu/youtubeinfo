@@ -21,7 +21,7 @@ A Python package for retrieving YouTube data, including video statistics, captio
     - [Working with Captions](#working-with-captions)
     - [Channel Search](#channel-search)
     - [Channel Information](#channel-information)
-  - [API Reference](#api-reference)
+  - [Parameter Reference](#parameter-reference)
     - [Search Class](#search-class)
     - [ChannelInfo Class](#channelinfo-class)
   - [Applications](#applications)
@@ -141,7 +141,7 @@ channel_info.df  # DataFrame with video information and captions
 | EXAMPLE_CHANNEL_ID1 | EXAMPLE_VIDEO_ID1 | Example Video Title 1 | 2025-03-22 22:00:39+00:00 | Example caption text; More example text; Thanks... | https://example.com/sddefault.jpg |
 | EXAMPLE_CHANNEL_ID1 | EXAMPLE_VIDEO_ID2 | Example Video Title 2 | 2025-03-22 18:00:22+00:00 | Example caption text; Follow us on social media... | https://example.com/maxresdefault.jpg |
 
-## API Reference
+## Parameter Reference
 
 ### Search Class
 
