@@ -1,12 +1,12 @@
-import pandas as pd
 from typing import List, Union, Dict, Optional
+import pandas as pd
 
 from tubedata.utils import (
-    get_developer_key,
+    get_dev_key,
     create_tubedata_client,
     get_video_captions,
     process_thumbnails,
-    create_dataframe_from_items,
+    create_df_from_items,
 )
 
 
@@ -17,7 +17,7 @@ class ChannelInfo:
         self,
         channel_ids: Union[str, List[str]],
         max_results: int = 10,
-        accepted_caption_lang: List[str] = ["pt", "en"],
+        accepted_caption_lang: Optional[List[str]] = None,
         developer_key: Optional[str] = None,
     ) -> None:
         """
@@ -29,8 +29,11 @@ class ChannelInfo:
             accepted_caption_lang: List of accepted languages for captions.
             developer_key: YouTube API developer key.
         """
-        self._accepted_caption_lang = accepted_caption_lang
-        self._developer_key = get_developer_key(developer_key)
+        if accepted_caption_lang is not None:
+            self._accepted_caption_lang = accepted_caption_lang
+        else:
+            self._accepted_caption_lang = ["pt", "en"]
+        self._developer_key = get_dev_key(developer_key)
 
         if isinstance(channel_ids, str):
             channel_ids = [channel_ids]
@@ -65,7 +68,10 @@ class ChannelInfo:
 
                 all_data[channel_id] = response
             except Exception as e:
-                print(f"Error fetching videos for channel {channel_id}: {str(e)}")
+                print(
+                    f"Error fetching videos for channel {channel_id}: ",
+                    str(e),
+                )
 
         return all_data
 
@@ -115,4 +121,4 @@ class ChannelInfo:
                 video_data.append(video_info)
 
         # Create DataFrame from collected items
-        return create_dataframe_from_items(video_data)
+        return create_df_from_items(video_data)

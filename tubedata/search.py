@@ -1,15 +1,17 @@
-import time
-import pandas as pd
 from typing import List, Dict, Optional
-from apiclient.errors import HttpError
+import time
+import requests
+import pandas as pd
+from googleapiclient.errors import HttpError
+
 
 from tubedata.utils import (
-    get_developer_key,
+    get_dev_key,
     create_tubedata_client,
     get_video_captions,
     get_video_statistics,
     process_thumbnails,
-    create_dataframe_from_items,
+    create_df_from_items,
 )
 
 
@@ -23,7 +25,7 @@ class Search:
         term: str,
         caption: bool = False,
         maxres: int = 50,
-        accepted_caption_lang: List[str] = ["pt", "en"],
+        accepted_caption_lang: Optional[List[str]] = None,
         item_type: str = "video",
         developer_key: Optional[str] = None,
     ) -> None:
@@ -38,12 +40,18 @@ class Search:
             item_type: Type of item to search for ("video" or "channel")
             developer_key: YouTube API developer key
         """
+        if accepted_caption_lang is None:
+            accepted_caption_lang = ["pt", "en"]
         self._accepted_caption_lang = accepted_caption_lang
-        self._developer_key = get_developer_key(developer_key)
+        self._developer_key = get_dev_key(developer_key)
         self.raw = self._consolidate_search(term, maxres, item_type)
-        self.df = self._build_dataframe(item_type=item_type, caption=caption)
+        self.df = self._build_dataframe(
+            item_type=item_type, caption=caption
+        )
 
-    def _consolidate_search(self, term: str, maxres: int, item_type: str) -> List[Dict]:
+    def _consolidate_search(
+        self, term: str, maxres: int, item_type: str
+    ) -> List[Dict]:
         """
         Consolidate search results from multiple pages if needed.
 
@@ -100,10 +108,14 @@ class Search:
             HttpError: If API request fails
         """
         try:
-            search_list = self._search_request(term, maxres, page_token, item_type)
+            search_list = self._search_request(
+                term, maxres, page_token, item_type
+            )
             # Validate response
             if isinstance(search_list, dict):
-                expected_keys = ["kind", "etag", "regionCode", "pageInfo", "items"]
+                expected_keys = [
+                    "kind", "etag", "regionCode", "pageInfo", "items"
+                ]
                 if not set(search_list.keys()).issuperset(set(expected_keys)):
                     raise KeyError("Missing expected keys in API response")
             else:
@@ -190,7 +202,9 @@ class Search:
 
                     if item_type == "video":
                         # Add statistics
-                        item_stats = get_video_statistics(item_id, self._developer_key)
+                        item_stats = get_video_statistics(
+                            item_id, self._developer_key
+                        )
                         video_info.update(item_stats)
 
                         # Add captions if requested
@@ -202,10 +216,15 @@ class Search:
 
                     items_data.append(video_info)
 
-                except Exception:
+                except (
+                    KeyError,
+                    ValueError,
+                    HttpError,
+                    requests.RequestException,
+                ):
                     continue
 
-        df = create_dataframe_from_items(items_data)
+        df = create_df_from_items(items_data)
 
         if not df.empty:
             if item_type == "video":

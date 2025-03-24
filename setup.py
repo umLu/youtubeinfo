@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="tubedata",
-    version="0.3.1",
+    version="0.3.2",
     author="Luiz P.",
     author_email="umluiz@gmail.com",
     description=(

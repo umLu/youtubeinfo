@@ -10,8 +10,9 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(df_shape.shape[1], 13)
 
     def test_caption(self):
-        df_caption = Search("Test", caption=True).df["video_caption"]
-        self.assertTrue(len([_ for _ in df_caption.to_list() if _ is None]) > 0)
+        df_caption = Search("Test", caption=True).df
+        list_caption = df_caption["video_caption"].to_list()
+        self.assertTrue(len([_ for _ in list_caption if _ is None]) > 0)
 
     def test_channel(self):
         df_channel = Search("Test", item_type="channel").df
