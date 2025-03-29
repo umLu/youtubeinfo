@@ -5,9 +5,9 @@ import pandas as pd
 from googleapiclient.errors import HttpError
 
 
-from tubedata.utils import (
+from tubeframes.utils import (
     get_dev_key,
-    create_tubedata_client,
+    create_tubeframes_client,
     get_video_captions,
     get_video_statistics,
     process_thumbnails,
@@ -144,9 +144,9 @@ class Search:
         Returns:
             Dict: Search results
         """
-        tubedata_client = create_tubedata_client(self._developer_key)
+        tubeframes_client = create_tubeframes_client(self._developer_key)
         search_response = (
-            tubedata_client.search()
+            tubeframes_client.search()
             .list(
                 q=term,
                 part="id,snippet",

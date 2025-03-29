@@ -1,5 +1,5 @@
 import unittest
-from tubedata import Search
+from tubeframes import Search
 
 
 class TestSearch(unittest.TestCase):

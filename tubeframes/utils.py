@@ -4,9 +4,9 @@ import requests
 import pandas as pd
 from googleapiclient.discovery import build
 import youtube_transcript_api as ytapi
-from tubedata.config.constants import YOUTUBE_API_SERVICE_NAME
-from tubedata.config.constants import YOUTUBE_API_VERSION
-from tubedata.config.constants import YOUTUBE_API_URL
+from tubeframes.config.constants import YOUTUBE_API_SERVICE_NAME
+from tubeframes.config.constants import YOUTUBE_API_VERSION
+from tubeframes.config.constants import YOUTUBE_API_URL
 
 
 def get_dev_key(dev_key: Optional[str] = None) -> str:
@@ -30,7 +30,7 @@ def get_dev_key(dev_key: Optional[str] = None) -> str:
     return dev_key
 
 
-def create_tubedata_client(dev_key: str):
+def create_tubeframes_client(dev_key: str):
     """
     Create YouTube API client.
 

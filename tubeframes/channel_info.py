@@ -1,9 +1,9 @@
 from typing import List, Union, Dict, Optional
 import pandas as pd
 
-from tubedata.utils import (
+from tubeframes.utils import (
     get_dev_key,
-    create_tubedata_client,
+    create_tubeframes_client,
     get_video_captions,
     process_thumbnails,
     create_df_from_items,
@@ -40,7 +40,7 @@ class ChannelInfo:
 
         self._channel_ids = channel_ids
         self._max_results = max_results
-        self._youtube = create_tubedata_client(self._developer_key)
+        self._youtube = create_tubeframes_client(self._developer_key)
 
         self.raw_data = self._fetch_channel_videos()
         self.df = self._build_dataframe()

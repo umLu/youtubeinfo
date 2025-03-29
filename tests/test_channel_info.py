@@ -1,5 +1,5 @@
 import unittest
-from tubedata import ChannelInfo
+from tubeframes import ChannelInfo
 
 
 class TestChannelInfo(unittest.TestCase):

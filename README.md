@@ -1,16 +1,17 @@
-# TubeData - A YouTube Data Analysis Library
+# TubeFrames - A YouTube Data Analysis Library
 
-[![PyPI version](https://badge.fury.io/py/tubedata.svg)](https://badge.fury.io/py/tubedata)
-[![Python Versions](https://img.shields.io/pypi/pyversions/tubedata.svg)](https://pypi.org/project/tubedata/)
+[![PyPI version](https://badge.fury.io/py/tubeframes.svg)](https://badge.fury.io/py/tubeframes)
+[![Python Versions](https://img.shields.io/pypi/pyversions/tubeframes.svg)](https://pypi.org/project/tubeframes/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-A Python package for retrieving YouTube data, including video statistics, captions, and channel information. TubeData outputs results in a user-friendly pandas DataFrame format, making it ideal for data analysis workflows — especially in Jupyter Notebooks.
+A Python package for retrieving YouTube data, including video statistics, captions, and channel information. TubeFrames outputs results in a user-friendly pandas DataFrame format, making it ideal for data analysis workflows — especially in Jupyter Notebooks.
 
 ## Table of Contents
 
-- [TubeData - A YouTube Data Analysis Library](#tubedata---a-youtube-data-analysis-library)
+- [TubeFrames - A YouTube Data Analysis Library](#tubeframes---a-youtube-data-analysis-library)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
+  - [Attribution](#attribution)
   - [Setup](#setup)
     - [Requirements](#requirements)
     - [API Key Setup](#api-key-setup)
@@ -35,6 +36,10 @@ A Python package for retrieving YouTube data, including video statistics, captio
 - 📝 **Caption Extraction**: Extract video captions in multiple languages
 - 📺 **Channel Information**: Data collection from specific channels
 
+## Attribution
+
+This project uses the YouTube Data API and is not affiliated with or endorsed by YouTube or Google. All YouTube content and trademarks are the property of their respective owners.
+
 ## Setup
 
 ### Requirements
@@ -45,7 +50,7 @@ A Python package for retrieving YouTube data, including video statistics, captio
 
 ### API Key Setup
 
-To use `tubedata`, create a YouTube Data API key following the [official Google documentation](https://developers.google.com/youtube/registering_an_application?hl=en).
+To use `tubeframes`, create a YouTube Data API key following the [official Google documentation](https://developers.google.com/youtube/registering_an_application?hl=en).
 
 #### Setting as Environment Variable
 
@@ -60,7 +65,7 @@ export YOUTUBE_DEVELOPER_KEY=<YOUR_YOUTUBE_DEVELOPER_KEY>
 ### Installation
 
 ```shell
-pip install tubedata
+pip install tubeframes
 ```
 
 ## Usage
@@ -70,9 +75,9 @@ pip install tubedata
 Create a search object to retrieve video information:
 
 ```python
-import tubedata as yt
-tubedata_search = yt.Search("Test", developer_key=<YOUR_YOUTUBE_DEVELOPER_KEY>)
-tubedata_search.df  # DataFrame with YouTube infos (likes, views, title, etc.)
+import tubeframes as yt
+tubeframes_search = yt.Search("Test", developer_key=<YOUR_YOUTUBE_DEVELOPER_KEY>)
+tubeframes_search.df  # DataFrame with YouTube infos (likes, views, title, etc.)
 ```
 
 **Results include:**
@@ -88,10 +93,10 @@ tubedata_search.df  # DataFrame with YouTube infos (likes, views, title, etc.)
 To include video captions in your results, use the argument ```captions=True```:
 
 ```python
-import tubedata as yt
+import tubeframes as yt
 # YOUTUBE_DEVELOPER_KEY is not necessary if set as environment variable
-tubedata_search = yt.Search("Test", caption=True)
-tubedata_search.df  # A new column with captions "video_caption" will appear
+tubeframes_search = yt.Search("Test", caption=True)
+tubeframes_search.df  # A new column with captions "video_caption" will appear
 ```
 
 **Results with captions:**
@@ -108,9 +113,9 @@ tubedata_search.df  # A new column with captions "video_caption" will appear
 To search for channels instead of videos:
 
 ```python
-import tubedata as yt
-tubedata_search = yt.Search("Test", item_type="channel")
-tubedata_search.df  # DataFrame with YouTube channel information
+import tubeframes as yt
+tubeframes_search = yt.Search("Test", item_type="channel")
+tubeframes_search.df  # DataFrame with YouTube channel information
 ```
 
 **Channel search results:**
@@ -125,7 +130,7 @@ tubedata_search.df  # DataFrame with YouTube channel information
 To get information and captions from videos of specific channel(s), use the `ChannelInfo` class:
 
 ```python
-import tubedata as yt
+import tubeframes as yt
 channel_info = yt.ChannelInfo(
     channel_ids=["<A CHANNEL ID>"],
     max_results=10,
@@ -159,9 +164,9 @@ The `Search` class accepts the following arguments:
 Example with all parameters:
 
 ```python
-import tubedata as yt
+import tubeframes as yt
 
-tubedata_search = yt.Search(
+tubeframes_search = yt.Search(
     term="Python Tutorial",
     caption=True,
     maxres=100,
@@ -171,7 +176,7 @@ tubedata_search = yt.Search(
 )
 
 # Access the resulting DataFrame
-df = tubedata_search.df
+df = tubeframes_search.df
 ```
 
 ### ChannelInfo Class
@@ -188,7 +193,7 @@ The `ChannelInfo` class accepts the following arguments:
 Example with all parameters:
 
 ```python
-import tubedata as yt
+import tubeframes as yt
 
 channel_info = yt.ChannelInfo(
     channel_ids=["<CHANNEL ID 1>", "<CHANNEL ID 2>"],
@@ -203,7 +208,7 @@ df = channel_info.df
 
 ## Applications
 
-TubeData is particularly useful for:
+TubeFrames is particularly useful for:
 
 - **Sentiment Analysis**: Extract captions for sentiment analysis
 - **Text Mining**: Identify keywords and topics from YouTube channels

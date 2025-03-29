@@ -1,9 +1,9 @@
 import unittest
 import os
 import pandas as pd
-from tubedata.utils import (
+from tubeframes.utils import (
     get_dev_key,
-    create_tubedata_client,
+    create_tubeframes_client,
     get_video_captions,
     get_video_statistics,
     create_df_from_items,
@@ -34,9 +34,9 @@ class TestUtilsFunctions(unittest.TestCase):
         key = get_dev_key(test_key)
         self.assertEqual(key, test_key)
 
-    def test_create_tubedata_client(self):
-        """Test creating tubedata client."""
-        client = create_tubedata_client(self.developer_key)
+    def test_create_tubeframes_client(self):
+        """Test creating tubeframes client."""
+        client = create_tubeframes_client(self.developer_key)
         self.assertTrue(hasattr(client, "search"))
         self.assertTrue(hasattr(client, "videos"))
         self.assertTrue(hasattr(client, "activities"))
